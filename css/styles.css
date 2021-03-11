@@ -72,23 +72,27 @@ body {
 /* ------------------- This section describes the styling for the gameboard section ------------------- */
 .playerBoard {
   /*max-width: 1200px;*/
-  justify-content: center;
   display: grid;
   grid-template-columns: repeat(4, auto);
   grid-gap: 10px;
+  justify-content: center;
+  perspective: 500px;
+  padding-bottom: 20px;
 }
 .playingCard {
   /*display: flex;*/
   position: relative; /*but why here???*/
   height: 230px;
   width: 230px;
-  border: 3px solid black;
+
   /*overflow: hidden;*/
 }
 
 .playingCardFace {
   position: absolute;
   display: flex;
+  justify-content: center;
+  align-items: center;
   /*background: radial-gradient(#f9c80eff, #f86624ff);*/
   /* background-image: radial-gradient(
     ellipse farthest-corner at 45px 45px,
@@ -100,23 +104,41 @@ body {
   position: absolute;*/
   height: 100%;
   width: 100%;
-  /*backface-visibility: hidden;*/
+  border: 3px solid black;
   overflow: hidden;
+  transition: transform 70ms ease-in-out;
+  backface-visibility: hidden;
 }
 
+.playingCard .playingCardFace.visible.cardBack {
+  transform: rotateY(360);
+}
+
+.playingCard .playingCardFace.visible.cardFront {
+  transform: rotateY(0);
+}
+
+/*
+.playingCardFace.cardFront {
+  animation: dance 1s linear infinite 500ms;
+}*/
+
 .cardBack {
-  position: relative;
+  /*position: relative;*/
   background: radial-gradient(#f9c80eff, #f86624ff);
   background-image: radial-gradient(
     ellipse farthest-corner at 45px 45px,
     rgba(35, 13, 163, 0.9) 30%,
     rgba(199, 31, 241, 0.2)
   );
+  border-color: #d45c00ec;
   transform: rotateY(0);
-  backface-visibility: hidden;
+  /*backface-visibility: hidden;*/
 }
 .cardFront {
-  backface-visibility: visible;
+  /*backface-visibility: visible;*/
+  background-color: #ffbb89;
+  border-color: #333;
   transform: rotateY(180deg);
 }
 
@@ -128,17 +150,19 @@ body {
 /*But how to get the two faces to line on top of eachother and only show one at a time?*/
 
 .titleScreen {
+  top: 25%;
+  left: 30%;
   z-index: 100;
   display: none;
-  position: fixed;
+  position: sticky;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   color: #ff6d00;
   font-family: Creepy, serif;
-  transition: background-color 500ms, font-size 500ms;
+  /*transition: background-color 500ms, font-size 500ms;*/
 }
-
+/*
 .titleScreen-small {
   font-size: 0.3em;
 }
@@ -147,3 +171,4 @@ body {
   display: flex;
   animation: overlay-grow 500ms forwards;
 }
+*/
