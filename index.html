@@ -4,12 +4,13 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" href="./css/styles.css"/>
+        <script src="./scripts/scripts.js"></script>
         <title>MemEMEmory</title>
     </head>
     <body>
         <main>
             <!--This section describes the Title pop up-->
-            <section class="titleScreen visible" id="titleScreen">
+            <div class="titleScreen" id="titleScreen">
                 <h2>MemE MEmory:</h2>
                 <h3>The card flipping memory game of memes</h3>
                 <div class="top3">
@@ -20,83 +21,112 @@
                     </ol>
                 </div>
                 <p>Click button to play</p>
-                <button>START</button>
-            </section>
+                <button onclick="start()">START</button>
+            </div>
             <!-- This section describes the title and current player's stats-->
-            <section class="titleBar">
+            <div class="titleBar">
 
                 <h1>MemE MEmory</h1>
                 <div class="statContainer">
                     <div class="statContainerStat" id="timeStat">
                         <h4 class="h4class">Time:</h4>
-                        <span class="timeRemaining">time</span>
+                        <span class="timeRemaining" id="remainingTime">100</span>
                     </div>
                     <div class="statContainerStat" id="flipStat">
                         <h4 class="h4class">Flips:</h4>
-                        <span class="totalFlips">flips</span>
+                        <span id="totalFlips">0</span>
                     </div>
                     <div class="statContainerStat" id="comboStat">
                         <h4 class="h4class">Combos:</h4>
-                        <span class="comboCount">combo#</span>
+                        <span id="comboCount">0</span>
                     </div>
                     <div class="statContainerStat" id="scoreStat">
                         <h4 class="h4class">Score:</h4>
-                        <span class="currentScore">score</span>
+                        <span id="currentScore">0</span>
                     </div>
                 </div>
 
-            </section>
+            </div>
             <!--This section describes the playing board--comprised of pairs of cards-->
-            <section class="playerBoard">
+            <div class="playerBoard" id="playerBoard">
 
                 <!--Cards 1-4-->
-                <div class="playingCard">
-                    <div class="cardBack playingCardFace">
+                <div  class="playingCard">
+                    <div onclick="changeFace(this)" class="playingCardFace cardBack">
                         <img class= "cardBackIcon" src="images/face1.png">
                     </div>
-                    <div class="cardFront playingCardFace">
-                        <img class= "cardFrontIcon" src="images/twerk.gif"/>
+                    <div class="playingCardFace cardFront">
+                        <img class= "cardFrontIcon" id="t" src="images/twerk.gif"/>
+                    </div>
+                </div>
+                <div class="playingCard">
+                    <div onclick="changeFace(this)" class="playingCardFace cardBack">
+                        <img class= "cardBackIcon" src="images/face1.png">
+                    </div>
+                    <div class="playingCardFace cardFront">
+                        <img class= "cardFrontIcon" id="3" src="images/face3.png"/>
+                    </div>
+                </div>
+                <div class="playingCard">
+                    <div onclick="changeFace(this)" class="playingCardFace cardBack">
+                        <img class= "cardBackIcon" src="images/face1.png">
+                    </div>
+                    <div class="playingCardFace cardFront">
+                        <img class= "cardFrontIcon" id="4" src="images/face4.png"/>
+                    </div>
+                </div>
+                <div class="playingCard">
+                    <div onclick="changeFace(this)" class="playingCardFace cardBack">
+                        <img class= "cardBackIcon" src="images/face1.png">
+                    </div>
+                    <div class="playingCardFace cardFront">
+                        <img class= "cardFrontIcon" id="4" src="images/face4.png"/>
                     </div>
                 </div>
 
-                <div class="playingCard">
-                    <div class="cardBack playingCardFace">
+                <!--Cards 5-8-->
+                <div  class="playingCard">
+                    <div onclick="changeFace(this)" class="playingCardFace cardBack">
                         <img class= "cardBackIcon" src="images/face1.png">
                     </div>
-                    <div class="cardFront playingCardFace">
-                        <img class= "cardFrontIcon" src="images/face3.png"/>
+                    <div class="playingCardFace cardFront">
+                        <img class= "cardFrontIcon" src="images/1.gif"/>
                     </div>
                 </div>
-
                 <div class="playingCard">
-                    <div class="cardBack playingCardFace">
+                    <div onclick="changeFace(this)" class="playingCardFace cardBack">
                         <img class= "cardBackIcon" src="images/face1.png">
                     </div>
-                    <div class="cardFront playingCardFace">
-                        <img class= "cardFrontIcon" src="images/face3.png"/>
+                    <div class="playingCardFace cardFront">
+                        <img class= "cardFrontIcon" src="images/face6.png"/>
                     </div>
                 </div>
-
                 <div class="playingCard">
-                    <div class="cardBack playingCardFace">
+                    <div onclick="changeFace(this)" class="playingCardFace cardBack">
                         <img class= "cardBackIcon" src="images/face1.png">
                     </div>
-                    <div class="cardFront playingCardFace">
-                        <img class= "cardFrontIcon" src="images/face3.png"/>
+                    <div class="playingCardFace cardFront">
+                        <img class= "cardFrontIcon" src="images/2.gif"/>
                     </div>
                 </div>
-
-
+                <div class="playingCard">
+                    <div onclick="changeFace(this)" class="playingCardFace cardBack">
+                        <img class= "cardBackIcon" src="images/face1.png">
+                    </div>
+                    <div class="playingCardFace cardFront">
+                        <img class= "cardFrontIcon" src="images/3.gif"/>
+                    </div>
+                </div>
 
                
 
                 
             
 
-            </section>
+            </div>
         </main>
     </body>
 
-
+    
 
 </html>
