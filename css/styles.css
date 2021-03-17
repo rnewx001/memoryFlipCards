@@ -79,7 +79,7 @@ body {
   /*max-width: 1200px;*/
   display: grid;
   grid-template-columns: repeat(4, auto);
-  grid-gap: 10px;
+  grid-gap: 5px;
   justify-content: center;
   perspective: 500px;
   padding-bottom: 20px;
