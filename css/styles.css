@@ -48,13 +48,14 @@ body {
   font-weight: normal;
   font-size: 5em;
   text-align: center;
-  margin: 10px;
+  margin: 0px;
 }
 .statContainer {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  margin: 20px;
+  margin: 0px;
+  padding-bottom: 5px;
 }
 .statContainer > .statContainerStat {
   flex: auto;
