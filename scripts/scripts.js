@@ -20,6 +20,8 @@ class MeMEMEmory {
     this.totalFlips = 0;
     this.comboElement.innerText = "0";
     this.maxCombo = 0;
+    this.scoreElement.innerText = "0";
+    this.currentScore = 0;
     this.lastMatched = false;
     this.busy = true; /*why?*/
 
@@ -83,11 +85,24 @@ class MeMEMEmory {
     }
   }
 
-  /* -------------------- change card face to visible-------------------- */
+  /* -------------------- change card face to visible -------------------- */
   changeFace(playingCard) {
     playingCard.getElementsByClassName("cardFront")[0].classList.add("visible");
   }
 
+  /* -------------------- change card face to hidden -------------------- */
+  hideCards(cardHand) {
+    //For each of the two cards in the cardHand array, remove the visible class name after 0.9secs
+    this.cardHand.forEach((playingCard) => {
+      setTimeout(() => {
+        playingCard
+          .getElementsByClassName("cardFront")[0]
+          .classList.remove("visible");
+      }, 900);
+    });
+  }
+
+  /* -------------------- check cards for a match -------------------- */
   checkCardMatch(playingCard) {
     if (this.cardHand.length == 2) {
       //if we have a pair...
@@ -104,6 +119,8 @@ class MeMEMEmory {
           //else set last match to true for next play
           this.lastMatched = true;
         }
+        //update the score
+        this.updateScore();
       } else {
         //no match
         console.log("NO Match");
@@ -119,15 +136,31 @@ class MeMEMEmory {
     }
   }
 
-  hideCards(cardHand) {
-    //For each of the two cards in the cardHand array, remove the visible class name after 0.9secs
-    this.cardHand.forEach((playingCard) => {
-      setTimeout(() => {
-        playingCard
-          .getElementsByClassName("cardFront")[0]
-          .classList.remove("visible");
-      }, 900);
-    });
+  /* -------------------- get the current score from UI -------------------- */
+  getScore() {
+    this.currentScore = parseInt(this.scoreElement.innerText);
+    return this.currentScore;
+  }
+  /* -------------------- update score -------------------- */
+  scorePlay() {
+    let currScore = this.getScore();
+
+    //Base bonus for making a match
+    currScore += 100;
+
+    //Bonus multiplier for current combo count
+    let currComboCountMultiplier = parseInt(this.comboElement.innerHTML);
+    currScore += currScore * currComboCountMultiplier;
+
+    //Bonus multiplier for max combo count
+    currScore += currScore * this.maxCombo;
+
+    return currScore;
+  }
+
+  /* -------------------- update the current score to UI -------------------- */
+  updateScore() {
+    this.scoreElement.innerText = this.scorePlay();
   }
 
   /* -------------------- game over -------------------- */
@@ -136,6 +169,10 @@ class MeMEMEmory {
     clearInterval(this.countdown);
   }
 } /* End of CLASS */
+
+/*---------------------------------------- SECTION ----------------------------------------
+/                                     NON-CLASS METHODS 
+/------------------------------------------------------------------------------------------*/
 
 /* -------------------- Describes methods to detect when DOM is loaded -------------------- */
 if (document.readyState == "loading") {
@@ -166,6 +203,8 @@ function load() {
           game.startGame();
       });
   });*/
+
+  /* Probably need to put the shuffle function here */
 
   playingCards.forEach((playingCards) => {
     playingCards.addEventListener("click", () => {
