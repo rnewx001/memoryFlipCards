@@ -1,3 +1,5 @@
+/* -------------------- Flip Count Tracking -------------------- */
+
 /* global var so far to track the total # of flips */
 var flips = 0;
 
@@ -6,14 +8,20 @@ function updateFlips() {
   document.getElementById("totalFlips").innerText = flips;
 }
 
+/* -------------------- Combo Counter Update -------------------- */
+
 var lastMatched = false;
 
 function updateCombos(lastMatched) {
   if (lastMatched == true) {
     let comboCount = parseInt(document.getElementById("comboCount").innerText);
     document.getElementById("comboCount").innerText = comboCount + 1;
+  } else {
+    document.getElementById("comboCount").innerText = 0;
   }
 }
+
+/* -------------------- -------------------- */
 
 function start() {
   document.getElementById("titleScreen").classList.add("invisible");
@@ -21,10 +29,14 @@ function start() {
   document.getElementById("playerBoard").classList.add("visible");
 }
 
+/* -------------------- -------------------- */
+
 function changeFace(element) {
   console.log(element.nextElementSibling.classList.add("visible"));
   element.nextElementSibling.classList.add("visible");
 }
+
+/* -------------------- Timer Functions -------------------- */
 
 /*
 Every 1 second:
