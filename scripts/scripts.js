@@ -7,6 +7,7 @@ class MeMEMEmory {
     this.flipsElement = document.getElementById("totalFlips");
     this.comboElement = document.getElementById("comboCount");
     this.scoreElement = document.getElementById("currentScore");
+    this.cardHand = [];
 
     /*
     this.userName;
@@ -18,6 +19,8 @@ class MeMEMEmory {
     this.flipsElement.innerHTML = "0";
     this.totalFlips = 0;
     this.comboElement.innerText = "0";
+    this.maxCombo = 0;
+    this.lastMatched = false;
     this.busy = true; /*why?*/
 
     this.timerElement.innerHTML = this.timeRemaining; //set the html element to the passed limit
@@ -28,9 +31,22 @@ class MeMEMEmory {
   }
 
   /* -------------------- Flip Count Tracking -------------------- */
-
   updateFlips() {
     this.flipsElement.innerHTML = parseInt(this.flipsElement.innerHTML) + 1;
+  }
+
+  /* -------------------- Combo Counter Update -------------------- */
+  updateCombos(param) {
+    //if param = 0 => clear; if param = 1 => increment the combo in UI
+    if (param == 1) {
+      let newComboCount = parseInt(this.comboElement.innerHTML) + 1;
+      this.comboElement.innerHTML = newComboCount;
+      if (newComboCount > this.maxCombo) {
+        this.maxCombo = newComboCount;
+      }
+    } else if (param == 0) {
+      this.comboElement.innerHTML = "0";
+    }
   }
 
   /* -------------------- Timer Tracking -------------------- */
@@ -48,8 +64,11 @@ class MeMEMEmory {
   flipCard(playingCard) {
     /* first test that the card is 'flippable' */
     if (this.canFlip(playingCard)) {
-      this.updateFlips();
-      this.changeFace(playingCard);
+      //if a card is face down...
+      this.updateFlips(); //update the flip count
+      this.changeFace(playingCard); //make the card face visible
+      this.cardHand.push(playingCard); //push the new card into the array
+      this.checkCardMatch(playingCard); //begin "match processing"
     }
   }
   canFlip(playingCard) {
@@ -67,6 +86,48 @@ class MeMEMEmory {
   /* -------------------- change card face to visible-------------------- */
   changeFace(playingCard) {
     playingCard.getElementsByClassName("cardFront")[0].classList.add("visible");
+  }
+
+  checkCardMatch(playingCard) {
+    if (this.cardHand.length == 2) {
+      //if we have a pair...
+      if (
+        //if we have a match
+        playingCard.getElementsByClassName("cardFrontIcon")[0].src ==
+        this.cardHand[0].getElementsByClassName("cardFrontIcon")[0].src
+      ) {
+        console.log("Match");
+        //check if the last match was true, then increment combo
+        if (this.lastMatched == true) {
+          this.updateCombos(1); //param = 1; increment combo by 1
+        } else {
+          //else set last match to true for next play
+          this.lastMatched = true;
+        }
+      } else {
+        //no match
+        console.log("NO Match");
+        this.lastMatched = false; //set last match to false
+        this.hideCards(this.cardHand); //hide the cards
+        this.updateCombos(0); //param = 0; clear combo
+        console.log(this.cardHand.length);
+      }
+      this.cardHand = []; //clear the array
+      console.log("cardHand length: ", this.cardHand.length);
+    } else {
+      console.log("cardHand length: ", this.cardHand.length);
+    }
+  }
+
+  hideCards(cardHand) {
+    //For each of the two cards in the cardHand array, remove the visible class name after 0.9secs
+    this.cardHand.forEach((playingCard) => {
+      setTimeout(() => {
+        playingCard
+          .getElementsByClassName("cardFront")[0]
+          .classList.remove("visible");
+      }, 900);
+    });
   }
 
   /* -------------------- game over -------------------- */
@@ -111,25 +172,6 @@ function load() {
       game.flipCard(playingCards);
     });
   });
-}
-
-/* -------------------- Combo Counter Update -------------------- */
-
-var lastMatched = false;
-
-function isMatch() {
-  if (cardA == cardB) {
-    lastMatched = true;
-  }
-}
-
-function updateCombos(lastMatched) {
-  if (lastMatched == true) {
-    let comboCount = parseInt(document.getElementById("comboCount").innerText);
-    document.getElementById("comboCount").innerText = comboCount + 1;
-  } else {
-    document.getElementById("comboCount").innerText = 0;
-  }
 }
 
 /* -------------------- -------------------- */
