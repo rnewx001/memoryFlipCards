@@ -112,7 +112,7 @@ body {
   width: 100%;
   border: 3px solid black;
   overflow: hidden;
-  transition: transform 70ms ease-in-out;
+  transition: transform 50ms ease-out;
   backface-visibility: hidden;
 }
 
