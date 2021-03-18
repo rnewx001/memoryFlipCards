@@ -5,14 +5,15 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" href="./css/styles.css"/>
         <script src="./scripts/scripts.js"></script>
-        <title>MemEMEmory</title>
+        <title>MEme MEmory</title>
     </head>
     <body>
         <main>
             <!--This section describes the Title pop up-->
             <div class="titleScreen" id="titleScreen">
-                <h2>MemE MEmory:</h2>
+                <h2>MEme MEmory:</h2>
                 <h3>The card flipping memory game of memes</h3>
+                <h5>Top 3 High Scores:</h5>
                 <div class="top3">
                     <ol>
                         <li>score1</li>
@@ -185,12 +186,34 @@
                         <img class= "cardFrontIcon" src="images/face5.png"/>
                     </div>
                 </div>
-               
-
-                
             
-
             </div>
+
+
+             <!--This section describes the Game Over pop up-->
+             <div class="titleScreen hidden" id="GameOverScreen">
+                <h2>GAME OVER</h2>
+                <div class="top3">
+                    <ol>
+                        <li>score1</li>
+                        <li>score2</li>
+                        <li>score3</li>
+                    </ol>
+                </div>
+                <div class="playerStats">
+                    <ul>
+                        <li>uScore</li>
+                        <li>uTime</li>
+                        <li>uFlips</li>
+                        <li>uMaxCombo</li>
+                    </ul>
+                </div>
+                <label for="uName">User Name</label>
+                <input type="text" id="userName" name="uName"> 
+                <p>Click button to post to Block Chain</p>
+                <button>START</button> <!--requires a name -->
+            </div>
+
         </main>
     </body>
 
