@@ -23,6 +23,8 @@ class MeMEMEmory {
     this.scoreElement.innerText = "0";
     this.currentScore = 0;
     this.lastMatched = false;
+    this.visibleCardsCount = 0;
+    this.flipFlag = true;
     this.busy = true; /*why?*/
 
     this.timerElement.innerHTML = this.timeRemaining; //set the html element to the passed limit
@@ -77,7 +79,8 @@ class MeMEMEmory {
     if (
       playingCard
         .getElementsByClassName("cardFront")[0]
-        .classList.contains("visible")
+        .classList.contains("visible") ||
+      this.flipFlag == false
     ) {
       return false;
     } else {
@@ -104,13 +107,16 @@ class MeMEMEmory {
 
   /* -------------------- check cards for a match -------------------- */
   checkCardMatch(playingCard) {
-    if (this.cardHand.length == 2) {
+    if (this.cardHand.length >= 2) {
       //if we have a pair...
+
       if (
         //if we have a match
         playingCard.getElementsByClassName("cardFrontIcon")[0].src ==
         this.cardHand[0].getElementsByClassName("cardFrontIcon")[0].src
       ) {
+        this.matchFound();
+        /*
         console.log("Match");
         //check if the last match was true, then increment combo
         if (this.lastMatched == true) {
@@ -119,21 +125,76 @@ class MeMEMEmory {
           //else set last match to true for next play
           this.lastMatched = true;
         }
+        //update the visible card count by 2
+        this.visibleCardsCount += 2;
         //update the score
-        this.updateScore();
+        this.updateScore(this.scorePlay());
+        //check to see if all cards are matched
+        //if all are visible, gameover()
+
+        if (this.visibleCardsCount == this.getTotalCardCount()) {
+          console.log("ALL ", this.getTotalCardCount(), " ARE VISIBLE");
+          this.gameOver();
+        }*/
       } else {
+        this.mismatchFound();
+        /*
         //no match
         console.log("NO Match");
+
         this.lastMatched = false; //set last match to false
         this.hideCards(this.cardHand); //hide the cards
         this.updateCombos(0); //param = 0; clear combo
-        console.log(this.cardHand.length);
+        console.log(this.cardHand.length);*/
       }
       this.cardHand = []; //clear the array
       console.log("cardHand length: ", this.cardHand.length);
     } else {
       console.log("cardHand length: ", this.cardHand.length);
     }
+  }
+
+  matchFound() {
+    console.log("Match");
+    //check if the last match was true, then increment combo
+    if (this.lastMatched == true) {
+      this.updateCombos(1); //param = 1; increment combo by 1
+    } else {
+      //else set last match to true for next play
+      this.lastMatched = true;
+    }
+    //update the visible card count by 2
+    this.visibleCardsCount += 2;
+    //update the score
+    this.updateScore(this.scorePlay());
+    //check to see if all cards are matched
+    //if all are visible, gameover()
+
+    if (this.visibleCardsCount == this.getTotalCardCount()) {
+      console.log("ALL ", this.getTotalCardCount(), " ARE VISIBLE");
+      this.gameOver();
+    }
+  }
+
+  mismatchFound() {
+    //no match
+    this.flipFlag = false;
+    console.log("NO Match");
+
+    this.lastMatched = false; //set last match to false
+    this.hideCards(this.cardHand); //hide the cards
+    this.updateCombos(0); //param = 0; clear combo
+    console.log(this.cardHand.length);
+
+    setTimeout(() => {
+      this.flipFlag = true;
+    }, 900);
+  }
+
+  /* -------------------- returns total count of all playingCards on board -------------------- */
+
+  getTotalCardCount() {
+    return document.getElementsByClassName("playingCard").length;
   }
 
   /* -------------------- get the current score from UI -------------------- */
@@ -146,27 +207,65 @@ class MeMEMEmory {
     let currScore = this.getScore();
 
     //Base bonus for making a match
-    currScore += 100;
+    currScore += 10;
 
     //Bonus multiplier for current combo count
     let currComboCountMultiplier = parseInt(this.comboElement.innerHTML);
     currScore += currScore * currComboCountMultiplier;
 
     //Bonus multiplier for max combo count
+    /*currScore += currScore * this.maxCombo;*/
+
+    return currScore;
+  }
+
+  /* -------------------- update score w/ bonus -------------------- */
+  scoreBonus() {
+    let currScore = this.getScore();
+    console.log("end score: ", currScore);
+    if (currScore == 0) {
+      //handles the case where player hits play but doesn't accumulate any score
+      return 0;
+    }
+
+    //Bonus multiplier for max combo count
     currScore += currScore * this.maxCombo;
+    console.log("after combo bonus, end score: ", currScore);
+
+    //Bonus muliplier for Time Remaining
+    let timeMult = parseInt(this.timerElement.innerText);
+    currScore += currScore * timeMult;
+    console.log("after time bonus, end score: ", currScore);
+
+    //Bonus multiplier for Flips
+    //get the number of cards and that gives us the perfect flip bonus
+    //anything beyond this perfect number results in less multiplication
+    let perfectFlipCount = this.getTotalCardCount();
+    console.log("perfect flip count: ", perfectFlipCount);
+
+    let maxFlipBonusMultiplier = perfectFlipCount;
+    let flipBonusCountDiff = this.flipsElement.innerText - perfectFlipCount;
+    if (flipBonusCountDiff >= 0) {
+      currScore +=
+        currScore * Math.abs(maxFlipBonusMultiplier - flipBonusCountDiff);
+    }
+
+    console.log("after flip bonus, end score: ", currScore);
 
     return currScore;
   }
 
   /* -------------------- update the current score to UI -------------------- */
-  updateScore() {
-    this.scoreElement.innerText = this.scorePlay();
+  updateScore(currScore) {
+    this.scoreElement.innerText = currScore;
   }
 
   /* -------------------- game over -------------------- */
   gameOver() {
     console.log("GAME OVER");
     clearInterval(this.countdown);
+    this.flipFlag = false;
+    this.updateScore(this.scoreBonus());
   }
 } /* End of CLASS */
 
