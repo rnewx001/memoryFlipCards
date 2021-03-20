@@ -14,42 +14,107 @@ $rebecca-purple: rgba(102, 46, 155, 1);
 $maximum-blue-green: rgba(67, 188, 205, 1);
 
 */
+@font-face {
+  font-family: "BADABB__";
+  src: url(../fonts/BADABB__.TTF) format("truetype");
+}
 
 * {
-  font-family: "Comic sans MS";
+  font-family: "BADABB__";
+  letter-spacing: 0.09em;
   box-sizing: border-box;
 }
 
 html {
+  background-image: url(../images/comicWall2.jpg);
+  background-size: 100%;
   min-height: 100vh; /* ensures page stretches to full height of screen at all times*/
 }
 
 body {
+  backdrop-filter: blur(0.12em);
+  min-height: 100vh;
   margin: 0; /* 0 margin ensures the background extends fully */
-  background: radial-gradient(#f9c80eff, #f86624ff);
+  /*background: radial-gradient(#f9c80eff, #f86624ff);*/
+}
+
+img {
+  max-width: 100%;
+  height: auto;
 }
 
 /* ------------------- This section describes the styling for the titleScreen popup ------------------- */
 .titleScreen {
-  /*
-  background-image: radial-gradient(
+  height: 500px;
+  max-width: 500px;
+  background-position: center;
+  background-size: 100%;
+  background-image: url(../images/boom.jpeg);
+  /*background-image: radial-gradient(
     ellipse farthest-corner at 45px 45px,
     rgba(249, 200, 14, 0.8) 0%,
-    rgba(248, 102, 36, 0.2)
-  ); */
-  /*background-color: rgba(248, 102, 36, 0.4);*/
-  height: 250px;
-  max-width: 500px;
+    rgba(248, 102, 36, 0.8),
+    url(../images/boom.jpeg)
+  );*/
+
+  top: 50%;
+  left: 30%;
+  z-index: 100;
+  display: flex;
+  position: sticky;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  color: yellow;
+  border: 3px solid black;
+  animation: overlay-grow 500ms forwards;
+
+  /*transition: background-color 500ms, font-size 500ms;*/
+}
+/*
+.titleScreen-small {
+  font-size: 0.3em;
+}*/
+
+.titleScreen.invisible {
+  animation: overlay-shrink 500ms forwards;
+  /*transition-delay: 2000ms;*/
+  /*transition: background-color 500ms, font-size 500ms;*/
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 1s, opacity 0.5s linear;
+}
+
+.titleScreen.hidden {
+  display: none;
 }
 
 /* ------------------- This section describes the styling for the titleBar section ------------------- */
-.titleBar h1 {
-  color: #662e9bff;
-  font-weight: normal;
-  font-size: 5em;
+.titleBar {
+  display: none;
+}
+
+.titleBar.visible {
+  display: inline;
   text-align: center;
   margin: 0px;
+
+  /*position: sticky;
+  top: 20px; */
 }
+
+.titleBar h1 {
+  color: rgb(238, 238, 24);
+  /* 1 pixel black shadow to left, top, right and bottom */
+  text-shadow: -4px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+  /*font-weight: normal;*/
+  font-size: 4.5em;
+  letter-spacing: 0.09em;
+  text-align: center;
+  padding: 0;
+  margin: 0px;
+}
+
 .statContainer {
   display: flex;
   flex-direction: row;
@@ -57,19 +122,33 @@ body {
   margin: 0px;
   padding-bottom: 5px;
 }
+
 .statContainer > .statContainerStat {
   flex: auto;
+  flex-basis: 50%;
 }
 .statContainerStat > .h4class {
   display: inline;
   width: auto;
-  color: rgb(42, 119, 129);
+  color: rgb(238, 238, 24);
+  /* 1 pixel black shadow to left, top, right and bottom */
+  text-shadow: -2px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+  letter-spacing: 0.09em;
   font-size: 2em;
 }
 
+.statContainerStat > .statText {
+  color: white;
+  /* 1 pixel black shadow to left, top, right and bottom */
+  text-shadow: -2px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+  letter-spacing: 0.09em;
+  font-size: 2em;
+}
+
+/*
 #scoreStat {
   flex-basis: 100%;
-}
+}*/
 
 /* ------------------- This section describes the styling for the gameboard section ------------------- */
 .playerBoard {
@@ -79,7 +158,7 @@ body {
 .playerBoard.visible {
   /*max-width: 1200px;*/
   display: grid;
-  grid-template-columns: repeat(4, auto);
+  grid-template-columns: repeat(6, auto);
   grid-gap: 5px;
   justify-content: center;
   perspective: 500px;
@@ -88,8 +167,8 @@ body {
 .playingCard {
   /*display: flex;*/
   position: relative; /*but why here???*/
-  height: 230px;
-  width: 230px;
+  height: 180px;
+  width: 122px; /*230px*/
 
   /*overflow: hidden;*/
 }
@@ -131,66 +210,28 @@ body {
 
 .cardBack {
   /*position: relative;*/
-  background: radial-gradient(#f9c80eff, #f86624ff);
+  background: black; /*
   background-image: radial-gradient(
     ellipse farthest-corner at 45px 45px,
     rgba(35, 13, 163, 0.9) 30%,
     rgba(199, 31, 241, 0.2)
-  );
-  border-color: #d45c00ec;
+  ); */
+  background-blend-mode: saturation;
+  border-width: 2px;
+  border-color: yellow;
   transform: rotateY(0);
   /*backface-visibility: hidden;*/
 }
 .cardFront {
   /*backface-visibility: visible;*/
-  background-color: #ffbb89;
-  border-color: #333;
+  /*background-color: #ffbb89;*/
+  border-color: rgb(250, 56, 7);
   transform: rotateY(180deg);
 }
 
 .playingCardFace:hover .cardBackIcon {
   transition: transform 70ms ease-in-out;
   transform: scale(1.3, 1.3);
-}
-
-.titleScreen {
-  height: 500px;
-  width: 800px;
-  background-image: radial-gradient(
-    ellipse farthest-corner at 45px 45px,
-    rgba(249, 200, 14, 1) 0%,
-    rgba(248, 102, 36, 1)
-  );
-  top: 5%;
-  left: 30%;
-  z-index: 100;
-  display: flex;
-  position: sticky;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  color: rgb(42, 119, 129);
-  border: 3px solid black;
-  font-family: Creepy, serif;
-  animation: overlay-grow 500ms forwards;
-  /*transition: background-color 500ms, font-size 500ms;*/
-}
-/*
-.titleScreen-small {
-  font-size: 0.3em;
-}*/
-
-.titleScreen.invisible {
-  animation: overlay-shrink 500ms forwards;
-  /*transition-delay: 2000ms;*/
-  /*transition: background-color 500ms, font-size 500ms;*/
-  visibility: hidden;
-  opacity: 0;
-  transition: visibility 1s, opacity 0.5s linear;
-}
-
-.titleScreen.hidden {
-  display: none;
 }
 
 @keyframes dance {
