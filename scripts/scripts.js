@@ -292,6 +292,7 @@ function load() {
   titleScreen.addEventListener("click", () => {
     document.getElementById("titleScreen").classList.add("invisible");
     document.getElementById("titleScreen").classList.add("hidden");
+    document.getElementById("titleBar").classList.add("visible");
     document.getElementById("playerBoard").classList.add("visible");
     game.gameStart();
   });
@@ -353,3 +354,7 @@ function updateTime() {
     clearInterval(myVar);
   }
 }*/
+
+/* Introduce Bonus Cards and Blocking cards */
+/* Shuffle the remaining cards, multiplier bonus, reveal-all for a half-second */
+/* Shuffle function */
