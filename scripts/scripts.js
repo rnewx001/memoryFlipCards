@@ -1,13 +1,48 @@
-class MeMEMEmory {
+class AudioController {
+  constructor() {
+    this.bgMusic = new Audio("audio/Avengers.mp3");
+    this.flipSound = new Audio("audio/flip.wav");
+    this.matchSound = new Audio("audio/match.wav");
+    this.victorySound = new Audio("audio/victory.wav");
+    this.gameOverSound = new Audio("audio/gameOver.wav");
+    this.bgMusic.volume = 0.3;
+    this.bgMusic.loop = true;
+  }
+  startMusic() {
+    this.bgMusic.play();
+  }
+  stopMusic() {
+    this.bgMusic.pause();
+    this.bgMusic.currentTime = 0;
+  }
+  flip() {
+    this.flipSound.play();
+  }
+  match() {
+    this.matchSound.play();
+  }
+  victory() {
+    this.stopMusic();
+    this.victorySound.play();
+  }
+  gameOver() {
+    this.stopMusic();
+    this.gameOverSound.play();
+  }
+}
+
+class Memory {
   constructor(timeLimit, playingCards) {
     this.timeLimit = timeLimit;
     this.timeRemaining = timeLimit;
     this.cardArray = playingCards;
     this.timerElement = document.getElementById("remainingTime");
-    this.flipsElement = document.getElementById("totalFlips");
+    //this.flipsElement = document.getElementById("totalFlips");
     this.comboElement = document.getElementById("comboCount");
     this.scoreElement = document.getElementById("currentScore");
+    this.endScoreElement = document.getElementById("endScore");
     this.cardHand = [];
+    this.audioController = new AudioController();
 
     /*
     this.userName;
@@ -16,8 +51,8 @@ class MeMEMEmory {
   }
 
   gameStart() {
-    this.flipsElement.innerHTML = "0";
-    this.totalFlips = 0;
+    //this.flipsElement.innerHTML = "0";
+    //this.totalFlips = 0;
     this.comboElement.innerText = "0";
     this.maxCombo = 0;
     this.scoreElement.innerText = "0";
@@ -25,10 +60,16 @@ class MeMEMEmory {
     this.lastMatched = false;
     this.visibleCardsCount = 0;
     this.flipFlag = true;
+    this.matchBonus = 100;
+    this.comboBaseBonus = 1000;
+    this.timeMultBonus = 10000;
+    this.flipCountBonus = 100000;
     this.busy = true; /*why?*/
 
+    this.audioController.startMusic();
     this.timerElement.innerHTML = this.timeRemaining; //set the html element to the passed limit
     setTimeout(() => {
+      this.shuffleCards(this.cardArray);
       this.countdown = this.updateTime();
       this.busy = false;
     }, 500); /* Wait half a second, then execute the preceeding actions */
@@ -60,7 +101,7 @@ class MeMEMEmory {
       this.timerElement.innerHTML = this.timeRemaining;
       if (this.timeRemaining == 0) {
         this.timerElement.innerHTML = "TIMES UP";
-        this.gameOver();
+        this.gameOver("lose");
       }
     }, 1001); /* run updateTime() every 1001ms or 1.001sec */
   }
@@ -69,7 +110,8 @@ class MeMEMEmory {
     /* first test that the card is 'flippable' */
     if (this.canFlip(playingCard)) {
       //if a card is face down...
-      this.updateFlips(); //update the flip count
+      this.audioController.flip();
+      //     this.updateFlips(); //update the flip count
       this.changeFace(playingCard); //make the card face visible
       this.cardHand.push(playingCard); //push the new card into the array
       this.checkCardMatch(playingCard); //begin "match processing"
@@ -169,10 +211,11 @@ class MeMEMEmory {
     this.updateScore(this.scorePlay());
     //check to see if all cards are matched
     //if all are visible, gameover()
+    this.audioController.match();
 
     if (this.visibleCardsCount == this.getTotalCardCount()) {
       console.log("ALL ", this.getTotalCardCount(), " ARE VISIBLE");
-      this.gameOver();
+      this.gameOver("win");
     }
   }
 
@@ -186,9 +229,10 @@ class MeMEMEmory {
     this.updateCombos(0); //param = 0; clear combo
     console.log(this.cardHand.length);
 
+    //this block ensures the player can't uncover more than 2 cards at a time
     setTimeout(() => {
       this.flipFlag = true;
-    }, 900);
+    }, 800);
   }
 
   /* -------------------- returns total count of all playingCards on board -------------------- */
@@ -207,11 +251,11 @@ class MeMEMEmory {
     let currScore = this.getScore();
 
     //Base bonus for making a match
-    currScore += 10;
+    currScore += this.matchBonus;
 
     //Bonus multiplier for current combo count
     let currComboCountMultiplier = parseInt(this.comboElement.innerHTML);
-    currScore += currScore * currComboCountMultiplier;
+    currScore += this.comboBaseBonus * currComboCountMultiplier;
 
     //Bonus multiplier for max combo count
     /*currScore += currScore * this.maxCombo;*/
@@ -228,29 +272,44 @@ class MeMEMEmory {
       return 0;
     }
 
+    /*
     //Bonus multiplier for max combo count
     currScore += currScore * this.maxCombo;
-    console.log("after combo bonus, end score: ", currScore);
+    console.log("after combo bonus, end score: ", currScore);*/
+
+    /*
+    this.matchBonus = 100;
+    this.comboBaseBonus = 1000;
+    this.timeMultBonus = 10000;
+    this.flipCountBonus =  100000;
+    
+    */
 
     //Bonus muliplier for Time Remaining
     let timeMult = parseInt(this.timerElement.innerText);
-    currScore += currScore * timeMult;
-    console.log("after time bonus, end score: ", currScore);
+    if (!isNaN(timeMult)) {
+      //test to ensure the multiplier doesn't use "TIMES UP"
+      timeMult = Math.floor(timeMult / 10);
+      currScore += this.timeMultBonus * timeMult;
+      console.log("after time bonus, end score: ", currScore);
+    }
 
+    /*
     //Bonus multiplier for Flips
     //get the number of cards and that gives us the perfect flip bonus
     //anything beyond this perfect number results in less multiplication
     let perfectFlipCount = this.getTotalCardCount();
     console.log("perfect flip count: ", perfectFlipCount);
 
-    let maxFlipBonusMultiplier = perfectFlipCount;
-    let flipBonusCountDiff = this.flipsElement.innerText - perfectFlipCount;
-    if (flipBonusCountDiff >= 0) {
-      currScore +=
-        currScore * Math.abs(maxFlipBonusMultiplier - flipBonusCountDiff);
+    let flipBonusCountDiff = Math.abs(this.flipsElement.innerText - perfectFlipCount);
+    if (flipBonusCountDiff == 0) {
+      //perfect game; no wasted flips
+      currScore += this.flipCountBonus; //const perfectFlipBonus;
+    } else {
+      currScore += Math.floor(this.flipCountBonus / flipBonusCountDiff);
     }
 
-    console.log("after flip bonus, end score: ", currScore);
+    console.log("after flip bonus, end score: ", currScore); */
 
     return currScore;
   }
@@ -260,12 +319,40 @@ class MeMEMEmory {
     this.scoreElement.innerText = currScore;
   }
 
+  /* -------------------- update the end score to UI -------------------- */
+  updateEndScore(currScore) {
+    this.endScoreElement.innerText = currScore;
+  }
+
   /* -------------------- game over -------------------- */
-  gameOver() {
+  gameOver(endState) {
     console.log("GAME OVER");
     clearInterval(this.countdown);
     this.flipFlag = false;
     this.updateScore(this.scoreBonus());
+
+    if (endState == "win") {
+      this.audioController.victory();
+    } else {
+      this.audioController.gameOver();
+    }
+
+    setTimeout(() => {
+      document.getElementById("GameOverScreen").classList.remove("hidden");
+      document.getElementById("playerBoard").classList.add("blur");
+    }, 500);
+
+    this.updateEndScore(this.getScore());
+  }
+
+  shuffleCards(cardsArray) {
+    // Fisher-Yates Shuffle Algorithm.
+    for (let i = cardsArray.length - 1; i > 0; i--) {
+      /*let randIndex = Math.floor(Math.random() * (i + 1));*/
+      let randIndex = Math.floor(Math.random() * i);
+      cardsArray[randIndex].style.order = i;
+      cardsArray[i].style.order = randIndex;
+    }
   }
 } /* End of CLASS */
 
@@ -283,7 +370,7 @@ if (document.readyState == "loading") {
 function load() {
   let titleScreen = document.getElementById("titleScreen");
   let playingCards = Array.from(document.getElementsByClassName("playingCard"));
-  let game = new MeMEMEmory(100, playingCards);
+  let game = new Memory(60, playingCards);
   /*console.log(playingCards);*/
   /*playingCards.forEach((playingCards) => console.log(playingCards));*/
   /*let game = new MixOrMatch(100, cards);*/
@@ -294,6 +381,7 @@ function load() {
     document.getElementById("titleScreen").classList.add("hidden");
     document.getElementById("titleBar").classList.add("visible");
     document.getElementById("playerBoard").classList.add("visible");
+    document.body.classList.add("blur");
     game.gameStart();
   });
 
