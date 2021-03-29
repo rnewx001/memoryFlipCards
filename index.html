@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" href="./css/styles.css"/>
-        <script src="./scripts/scripts.js"></script>
+        <script type="module" src="./scripts/scripts.js"></script>
         <title>Marvel Memory</title>
     </head>
     <body>
@@ -19,7 +19,7 @@
              <div class="titleScreen" id="titleScreen">
                 <section class="content">
                 <h2>Marvel Memory</h2>
-                <h3>The Comic Cover Card-Flipping Memory Game</h3>
+                <h3>The Card-Flipping Comic Cover Memory Game</h3>
                 <h5>High Scores</h5>
                 <div class="top3">
                     <ol>
@@ -47,11 +47,7 @@
                     <div class="statContainerStat" id="scoreStat">
                         <h4 class="h4class">Score:</h4>
                         <span class="statText" id="currentScore">SCORE</span>
-                    </div>
-    <!--               <div class="statContainerStat" id="flipStat">
-                        <h4 class="h4class">Flips:</h4>
-                        <span class="statText" id="totalFlips">FLIPS</span>
-                    </div>  -->  
+                    </div>  
                     <div class="statContainerStat" id="comboStat">
                         <h4 class="h4class">Combos:</h4>
                         <span class="statText" id="comboCount">COMBOS</span>
@@ -64,79 +60,98 @@
 
                 <!--Describes Row 1 of the playing board-->
                 <!--Cards 1-8-->
-                <div  class="playingCard">
-                    <div class="playingCardFace cardBack">
-                        <img class= "cardBackIcon" src="images/marvelLogo.png">
-                    </div>
-                    <div class="playingCardFace cardFront">
-                        <img class= "cardFrontIcon" src="images/MCC0.jpeg"/>
-                    </div>
-                </div>
-                <div class="playingCard">
-                    <div class="playingCardFace cardBack">
-                        <img class= "cardBackIcon" src="images/marvelLogo.png">
-                    </div>
-                    <div class="playingCardFace cardFront">
-                        <img class= "cardFrontIcon" src="images/MCC0.jpeg"/>
-                    </div>
-                </div>
-                <div class="playingCard">
-                    <div class="playingCardFace cardBack">
-                        <img class= "cardBackIcon" src="images/marvelLogo.png">
-                    </div>
-                    <div class="playingCardFace cardFront">
-                        <img class= "cardFrontIcon" src="images/MCC2.jpeg"/>
-                    </div>
-                </div>
-                <div class="playingCard">
-                    <div class="playingCardFace cardBack">
-                        <img class= "cardBackIcon" src="images/marvelLogo.png">
-                    </div>
-                    <div class="playingCardFace cardFront">
-                        <img class= "cardFrontIcon" src="images/MCC2.jpeg"/>
-                    </div>
-                </div>
-                <div  class="playingCard">
-                    <div class="playingCardFace cardBack">
-                        <img class= "cardBackIcon" src="images/marvelLogo.png">
-                    </div>
-                    <div class="playingCardFace cardFront">
-                        <img class= "cardFrontIcon" src="images/MCC4.jpeg"/>
-                    </div>
-                </div>
-                <div class="playingCard">
-                    <div class="playingCardFace cardBack">
-                        <img class= "cardBackIcon" src="images/marvelLogo.png">
-                    </div>
-                    <div class="playingCardFace cardFront">
-                        <img class= "cardFrontIcon" src="images/MCC4.jpeg"/>
-                    </div>
-                </div>
-                <div class="playingCard">
-                    <div class="playingCardFace cardBack">
-                        <img class= "cardBackIcon" src="images/marvelLogo.png">
-                    </div>
-                    <div class="playingCardFace cardFront">
-                        <img class= "cardFrontIcon" src="images/MCC6.jpeg"/>
-                    </div>
-                </div>
-                <div class="playingCard">
-                    <div class="playingCardFace cardBack">
-                        <img class= "cardBackIcon" src="images/marvelLogo.png">
-                    </div>
-                    <div class="playingCardFace cardFront">
-                        <img class= "cardFrontIcon" src="images/MCC6.jpeg"/>
-                    </div>
-                </div>
 
-                <!--Describes Row 2 of the playing board-->
-                <!--Cards 9-17-->
+
+                
+                <div class="playingCard">
+                    <div class="playingCardFace cardBack">
+                        <img class= "cardBackIcon" src="images/marvelLogo.png">
+                    </div>
+                    <div class="playingCardFace cardFront">
+                        <img class= "cardFrontIcon" src="images/MCC18.jpeg"/>
+                    </div>
+                </div>
+                <div class="playingCard">
+                    <div class="playingCardFace cardBack">
+                        <img class= "cardBackIcon" src="images/marvelLogo.png">
+                    </div>
+                    <div class="playingCardFace cardFront">
+                        <img class= "cardFrontIcon" src="images/MCC22.jpeg"/>
+                    </div>
+                </div>
+                <div class="playingCard">
+                    <div class="playingCardFace cardBack">
+                        <img class= "cardBackIcon" src="images/marvelLogo.png">
+                    </div>
+                    <div class="playingCardFace cardFront">
+                        <img class= "cardFrontIcon" src="images/MCC20.jpeg"/>
+                    </div>
+                </div>
+                <div class="playingCard">
+                    <div class="playingCardFace cardBack">
+                        <img class= "cardBackIcon" src="images/marvelLogo.png">
+                    </div>
+                    <div class="playingCardFace cardFront">
+                        <img class= "cardFrontIcon" src="images/MCC0.jpeg"/>
+                    </div>
+                </div>
+                <div  class="playingCard">
+                    <div class="playingCardFace cardBack">
+                        <img class= "cardBackIcon" src="images/marvelLogo.png">
+                    </div>
+                    <div class="playingCardFace cardFront">
+                        <img class= "cardFrontIcon" src="images/MCC4.jpeg"/>
+                    </div>
+                </div>
+                <div class="playingCard">
+                    <div class="playingCardFace cardBack">
+                        <img class= "cardBackIcon" src="images/marvelLogo.png">
+                    </div>
+                    <div class="playingCardFace cardFront">
+                        <img class= "cardFrontIcon" src="images/MCC2.jpeg"/>
+                    </div>
+                </div>
+                <div class="playingCard">
+                    <div class="playingCardFace cardBack">
+                        <img class= "cardBackIcon" src="images/marvelLogo.png">
+                    </div>
+                    <div class="playingCardFace cardFront">
+                        <img class= "cardFrontIcon" src="images/MCC4.jpeg"/>
+                    </div>
+                </div>
+                <div class="playingCard">
+                    <div class="playingCardFace cardBack">
+                        <img class= "cardBackIcon" src="images/marvelLogo.png">
+                    </div>
+                    <div class="playingCardFace cardFront">
+                        <img class= "cardFrontIcon" src="images/MCC6.jpeg"/>
+                    </div>
+                </div>
+                
+
+                
+                <div class="playingCard">
+                    <div class="playingCardFace cardBack">
+                        <img class= "cardBackIcon" src="images/marvelLogo.png">
+                    </div>
+                    <div class="playingCardFace cardFront">
+                        <img class= "cardFrontIcon" src="images/MCC12.jpeg"/>
+                    </div>
+                </div>
                 <div class="playingCard">
                     <div class="playingCardFace cardBack">
                         <img class= "cardBackIcon" src="images/marvelLogo.png">
                     </div>
                     <div class="playingCardFace cardFront">
                         <img class= "cardFrontIcon" src="images/MCC8.jpeg"/>
+                    </div>
+                </div>
+                <div  class="playingCard">
+                    <div class="playingCardFace cardBack">
+                        <img class= "cardBackIcon" src="images/marvelLogo.png">
+                    </div>
+                    <div class="playingCardFace cardFront">
+                        <img class= "cardFrontIcon" src="images/MCC12.jpeg"/>
                     </div>
                 </div>
                 <div  class="playingCard">
@@ -160,33 +175,17 @@
                         <img class= "cardBackIcon" src="images/marvelLogo.png">
                     </div>
                     <div class="playingCardFace cardFront">
+                        <img class= "cardFrontIcon" src="images/MCC22.jpeg"/>
+                    </div>
+                </div>
+                <div class="playingCard">
+                    <div class="playingCardFace cardBack">
+                        <img class= "cardBackIcon" src="images/marvelLogo.png">
+                    </div>
+                    <div class="playingCardFace cardFront">
                         <img class= "cardFrontIcon" src="images/MCC10.jpeg"/>
                     </div>
-                </div>
-                <div class="playingCard">
-                    <div class="playingCardFace cardBack">
-                        <img class= "cardBackIcon" src="images/marvelLogo.png">
-                    </div>
-                    <div class="playingCardFace cardFront">
-                        <img class= "cardFrontIcon" src="images/MCC12.jpeg"/>
-                    </div>
-                </div>
-                <div  class="playingCard">
-                    <div class="playingCardFace cardBack">
-                        <img class= "cardBackIcon" src="images/marvelLogo.png">
-                    </div>
-                    <div class="playingCardFace cardFront">
-                        <img class= "cardFrontIcon" src="images/MCC12.jpeg"/>
-                    </div>
-                </div>
-                <div class="playingCard">
-                    <div class="playingCardFace cardBack">
-                        <img class= "cardBackIcon" src="images/marvelLogo.png">
-                    </div>
-                    <div class="playingCardFace cardFront">
-                        <img class= "cardFrontIcon" src="images/MCC14.jpeg"/>
-                    </div>
-                </div>
+                </div>                
                 <div class="playingCard">
                     <div class="playingCardFace cardBack">
                         <img class= "cardBackIcon" src="images/marvelLogo.png">
@@ -196,15 +195,15 @@
                     </div>
                 </div>
                 
-
-                <!--Describes Row 3 of the playing board-->
-                <!--Cards 17-24-->
+                
+               
+                
                 <div class="playingCard">
                     <div class="playingCardFace cardBack">
                         <img class= "cardBackIcon" src="images/marvelLogo.png">
                     </div>
                     <div class="playingCardFace cardFront">
-                        <img class= "cardFrontIcon" src="images/MCC16.jpeg"/>
+                        <img class= "cardFrontIcon" src="images/MCC20.jpeg"/>
                     </div>
                 </div>
                 <div class="playingCard">
@@ -228,7 +227,7 @@
                         <img class= "cardBackIcon" src="images/marvelLogo.png">
                     </div>
                     <div class="playingCardFace cardFront">
-                        <img class= "cardFrontIcon" src="images/MCC18.jpeg"/>
+                        <img class= "cardFrontIcon" src="images/MCC16.jpeg"/>
                     </div>
                 </div>
                 <div class="playingCard">
@@ -236,7 +235,15 @@
                         <img class= "cardBackIcon" src="images/marvelLogo.png">
                     </div>
                     <div class="playingCardFace cardFront">
-                        <img class= "cardFrontIcon" src="images/MCC20.jpeg"/>
+                        <img class= "cardFrontIcon" src="images/MCC6.jpeg"/>
+                    </div>
+                </div>
+                <div  class="playingCard">
+                    <div class="playingCardFace cardBack">
+                        <img class= "cardBackIcon" src="images/marvelLogo.png">
+                    </div>
+                    <div class="playingCardFace cardFront">
+                        <img class= "cardFrontIcon" src="images/MCC0.jpeg"/>
                     </div>
                 </div>
                 <div class="playingCard">
@@ -244,7 +251,7 @@
                         <img class= "cardBackIcon" src="images/marvelLogo.png">
                     </div>
                     <div class="playingCardFace cardFront">
-                        <img class= "cardFrontIcon" src="images/MCC20.jpeg"/>
+                        <img class= "cardFrontIcon" src="images/MCC2.jpeg"/>
                     </div>
                 </div>
                 <div class="playingCard">
@@ -252,49 +259,39 @@
                         <img class= "cardBackIcon" src="images/marvelLogo.png">
                     </div>
                     <div class="playingCardFace cardFront">
-                        <img class= "cardFrontIcon" src="images/MCC22.jpeg"/>
+                        <img class= "cardFrontIcon" src="images/MCC14.jpeg"/>
                     </div>
                 </div>
-                <div class="playingCard">
-                    <div class="playingCardFace cardBack">
-                        <img class= "cardBackIcon" src="images/marvelLogo.png">
-                    </div>
-                    <div class="playingCardFace cardFront">
-                        <img class= "cardFrontIcon" src="images/MCC22.jpeg"/>
-                    </div>
-                </div>
+            </div> 
 
-            </div>
+
 
 
              <!--This section describes the Game Over pop up-->
              <div class="titleScreen hidden" id="GameOverScreen">
                  <section class="content">
-                <h2>GAME OVER</h2>
-                <div class="top3">
-                    <span>HIGH SCORES</span>
-                    <ol>
-                        <li>score1</li>
-                        <li>score2</li>
-                        <li>score3</li>
-                    </ol>
-                </div>
-                <div class="blockChainBlock">
-                    <div class="playerStats">
-                        <p>Your Score</p>
-                        <span id="endScore">URSCORE</span>
+                    <h2>GAME OVER</h2>
+                    <div class="top3">
+                        <span>HIGH SCORES</span>
+                        <ol>
+                            <li>score1</li>
+                            <li>score2</li>
+                            <li>score3</li>
+                        </ol>
                     </div>
-                    <div class="BCButton">
-                        <label for="uName">User Name</label>
-                        <input type="text" id="userName" name="uName"> 
-                        <p>Click button to WRITE to Block Chain</p>
-                        <button class="BCPostBtn" onclick="location.reload()">WRITE</button> <!--requires a name -->
+                    <div class="blockChainBlock">
+                        <div class="playerStats">
+                            <p>Your Score</p>
+                            <span id="endScore">URSCORE</span>
+                        </div>
+                        <div class="BCButton">
+                            <label for="uName">User Name</label>
+                            <input type="text" id="userName" name="uName"> 
+                            <p>Save Score To Block Chain</p>
+                            <button class="BCPostBtn" onclick="location.reload()">WRITE</button> <!--requires a name -->
+                        </div>
                     </div>
-                    
-
-                </div>
-                
-            </section>
+                 </section>
             </div>
 
 
