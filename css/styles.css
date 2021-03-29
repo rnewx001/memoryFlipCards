@@ -51,74 +51,6 @@ img {
   z-index: 100;
 }
 
-.titleScreen#GameOverScreen {
-  min-height: 450px;
-  position: fixed;
-  top: 55%;
-  left: 50%;
-  border: 3px solid rgb(12, 12, 12);
-}
-
-.titleScreen#GameOverScreen .content {
-  display: flex;
-  max-height: inherit; /*ensures the blur stretches the whole height*/
-  position: relative;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  backdrop-filter: blur(0.22em);
-}
-
-.titleScreen#GameOverScreen ol {
-  margin: 0;
-  font-size: 0.7em;
-}
-
-.titleScreen#GameOverScreen .blockChainBlock {
-  position: relative;
-  transform: translate(0%, 10%);
-  align-items: center;
-  text-shadow: 1px 1px 1px white;
-  -webkit-text-fill-color: black;
-}
-
-.titleScreen#GameOverScreen .blockChainBlock .playerStats {
-  display: inline-flex;
-  flex-basis: 50%;
-  min-width: 50%;
-  justify-content: space-between;
-}
-
-.titleScreen#GameOverScreen .blockChainBlock p {
-  margin: 0;
-}
-/*
-.titleScreen#GameOverScreen .blockChainBlock .playerStats {
-  display: inherit;
-  width: 100%;
-  justify-content: space-between;
-}
-
-.titleScreen#GameOverScreen .playerStats #endScore {
-  text-shadow: 2px 4px 1px black;
-  -webkit-text-stroke: 0.8px black;
-  -webkit-text-fill-color: white;
-  font-size: 2em;
-}
-
-.titleScreen#GameOverScreen .blockChainBlock p {
-  text-shadow: 2px 4px 1px black;
-  -webkit-text-stroke: 0.8px gray;
-  -webkit-text-fill-color: yellow;
-  font-size: 1.4em;
-  margin: 0;
-}
-
-.titleScreen#GameOverScreen .BCPostBtn {
-  position: relative;
-  left: 40%;
-} */
-
 .titleScreen .content {
   display: flex;
   min-height: inherit; /*ensures the blur stretches the whole height*/
@@ -186,7 +118,7 @@ img {
   display: none;
 }
 
-/* ------------------- This section describes the styling for the titleBar section ------------------- */
+/* --- This section describes the styling for the titleBar section --- */
 .titleBar {
   display: none;
 }
@@ -238,7 +170,7 @@ img {
   font-size: 2em;
 }
 
-/* ------------------- This section describes the styling for the gameboard section ------------------- */
+/* --- This section describes the styling for the gameboard section & cards --- */
 .playerBoard {
   display: none;
 }
@@ -296,6 +228,52 @@ img {
   transition: transform 7ms ease-in-out;
   transform: scale(1.2, 1.3);
 }
+
+/* --- This section describes the styling for the Game Over Screen --- */
+
+.titleScreen#GameOverScreen {
+  min-height: 450px;
+  position: fixed;
+  top: 55%;
+  left: 50%;
+  border: 3px solid rgb(12, 12, 12);
+}
+
+.titleScreen#GameOverScreen .content {
+  display: flex;
+  max-height: inherit; /*ensures the blur stretches the whole height*/
+  position: relative;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  backdrop-filter: blur(0.22em);
+}
+
+.titleScreen#GameOverScreen ol {
+  margin: 0;
+  font-size: 0.7em;
+}
+
+.titleScreen#GameOverScreen .blockChainBlock {
+  position: relative;
+  transform: translate(0%, 10%);
+  align-items: center;
+  text-shadow: 1px 1px 1px white;
+  -webkit-text-fill-color: black;
+}
+
+.titleScreen#GameOverScreen .blockChainBlock .playerStats {
+  display: inline-flex;
+  flex-basis: 50%;
+  min-width: 50%;
+  justify-content: space-between;
+}
+
+.titleScreen#GameOverScreen .blockChainBlock p {
+  margin: 0;
+}
+
+/* --- This section describes the styling for @keyframes and @media --- */
 
 @keyframes dance {
   0%,
